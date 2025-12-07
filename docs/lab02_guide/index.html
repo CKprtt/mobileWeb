@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <title>KKU Campus Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --kku-main: #a73b24;
+      --kku-light: #f7ebe7;
+      --kku-dark: #5a2114;
+      --text-main: #222222;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .page-fade {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .page-fade.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Kanit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text-main);
+      background-color: #ffffff;
+    }
+
+    header {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      background: linear-gradient(120deg, #ffffff 0%, #fff5f1 40%, #ffe3d9 100%);
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      color: var(--kku-dark);
+      letter-spacing: 0.03em;
+    }
+
+    .navbar-brand span {
+      font-size: 1.1rem;
+    }
+
+    .nav-link {
+      font-weight: 400;
+      color: #444444;
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      color: var(--kku-main);
+    }
+
+    .btn-kku-primary {
+      background-color: var(--kku-main);
+      color: #ffffff;
+      border-radius: 999px;
+      padding-inline: 1.4rem;
+      border: none;
+    }
+
+    .btn-kku-primary:hover {
+      background-color: var(--kku-dark);
+      color: #ffffff;
+    }
+
+    .btn-kku-outline {
+      border-radius: 999px;
+      border: 1px solid var(--kku-main);
+      color: var(--kku-main);
+      background-color: transparent;
+    }
+
+    .btn-kku-outline:hover {
+      background-color: var(--kku-main);
+      color: #ffffff;
+    }
+
+    .hero {
+      padding-top: 5rem;
+      padding-bottom: 4rem;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      background: rgba(167, 59, 36, 0.06);
+      color: var(--kku-main);
+    }
+
+    .hero-title-main {
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--kku-dark);
+      line-height: 1.25;
+    }
+
+    .hero-title-sub {
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #555555;
+    }
+
+    .hero-highlight {
+      color: var(--kku-main);
+    }
+
+    .hero-text {
+      max-width: 480px;
+    }
+
+    .hero-media-card {
+      background-color: #ffffff;
+      border-radius: 1.5rem;
+      padding: 1rem;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .hero-main-image {
+      border-radius: 1rem;
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-video-full {
+      width: 100%;
+      height: 100%;
+      max-height: 350px;
+      object-fit: contain;
+      background-color: #000;
+      border-radius: 1.2rem;
+      display: block;
+    }
+
+    .hero-video {
+      border-radius: 1rem;
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .hero-badge {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      background-color: rgba(255, 255, 255, 0.94);
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--kku-dark);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background-color: var(--kku-main);
+    }
+
+    main {
+      background-color: #ffffff;
+    }
+
+    .section-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--kku-main);
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--kku-dark);
+      margin-bottom: 0.2rem;
+    }
+
+    .section-subtitle {
+      color: #666666;
+      font-size: 0.96rem;
+    }
+
+    .places-section {
+      padding-top: 3rem;
+      padding-bottom: 3.5rem;
+      background-color: var(--kku-light);
+    }
+
+    .place-card {
+      background-color: #ffffff;
+      border-radius: 1.25rem;
+      padding: 1.2rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .place-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      background-color: rgba(167, 59, 36, 0.07);
+      color: var(--kku-main);
+    }
+
+    .place-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--kku-dark);
+      margin-bottom: 0.1rem;
+    }
+
+    .place-en {
+      font-size: 0.86rem;
+      color: #8a8a8a;
+    }
+
+    .place-description {
+      font-size: 0.92rem;
+      color: #555555;
+    }
+
+    .place-images img,
+    .hero-main-image,
+    .hero-video {
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .place-images img:hover,
+    .hero-main-image:hover,
+    .hero-video:hover {
+      transform: scale(1.04);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .place-images {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .place-images img {
+      width: 100%;
+      border-radius: 0.9rem;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .place-meta {
+      font-size: 0.82rem;
+      color: #999999;
+    }
+
+    .form-section {
+      padding-top: 3rem;
+      padding-bottom: 3.5rem;
+      background: radial-gradient(circle at top left, #ffe5da 0, #ffffff 40%, #ffffff 100%);
+    }
+
+    .form-card {
+      background-color: #ffffff;
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .btn-kku-primary,
+    .btn-kku-outline {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-kku-primary:hover,
+    .btn-kku-outline:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    .place-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .place-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.10);
+    }
+
+    .form-control,
+    .form-control:focus,
+    .form-select {
+      border-radius: 0.9rem;
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--kku-main);
+    }
+
+    .form-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #444444;
+    }
+
+    .required {
+      color: var(--kku-main);
+    }
+
+    .student-meta {
+      font-size: 0.9rem;
+      color: #777777;
+    }
+
+    footer {
+      padding: 1.6rem 0;
+      background-color: var(--kku-dark);
+      color: #f4f4f4;
+      font-size: 0.88rem;
+    }
+
+    footer a {
+      color: #ffd3c4;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    #logoCanvas {
+      display: block;
+      width: 56px;
+      height: 56px;
+    }
+
+    .arkku {
+      color: var(--kku-dark);
+      text-decoration: none;
+    }
+
+    @media (max-width: 992px) {
+      .hero {
+        padding-top: 4.5rem;
+      }
+
+      .hero-text {
+        margin-bottom: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding-bottom: 3rem;
+      }
+
+      .hero-main-image {
+        height: 200px;
+      }
+
+      .hero-video {
+        height: 180px;
+      }
+
+      .place-images img {
+        height: 110px;
+      }
+
+      .form-card {
+        padding: 1.4rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-title-main {
+        font-size: 1.9rem;
+      }
+
+      .place-images {
+        grid-template-columns: 1fr;
+      }
+
+      .place-images img {
+        height: 160px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary px-3 px-md-4">
+      <a class="navbar-brand" href="#">
+        <canvas id="logoCanvas" width="56" height="56"></canvas>
+        <span>KKU Campus Guide</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarMain">
+        <ul class="navbar-nav align-items-lg-center gap-lg-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#hero">หน้าแรก</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#places">สถานที่แนะนำ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#suggest-form">แนะนำสถานที่เพิ่มเติม</a>
+          </li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <button class="btn btn-kku-outline btn-sm" type="button">
+              <a class="arkku" href="https://360.kku.ac.th" target="_blank">KKU 360</a>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section id="hero" class="hero page-fade">
+      <div class="container">
+        <div class="row align-items-center g-4 g-lg-5">
+          <div class="col-lg-6">
+            <div class="hero-text">
+              <div class="hero-tag mb-2">
+                <span>KKU Campus Guide</span>
+                <span
+                  style="font-size: 0.7rem; padding: 0.08rem 0.4rem; border-radius: 999px; background-color: #ffffff;">มข.
+                  Khon Kaen University</span>
+              </div>
+              <h1 class="hero-title-main mt-2">
+                แนะนำสถานที่ใน<span class="hero-highlight">มอขอไข่</span>
+              </h1>
+              <p class="hero-title-sub mt-2 mb-3">
+                เดินเล่น กินข้าว อ่านหนังสือ ถ่ายรูป ชิลล์รอบบึง
+              </p>
+              <p class="mb-4">
+                เว็บไซต์ที่รวบรวม 6 สถานที่น่าไปภายในมหาวิทยาลัยขอนแก่น พร้อมคำอธิบายและภาพประกอบ ให้นักศึกษา
+                และผู้มาเยี่ยมชมได้วางแผนเที่ยวในมอได้ง่ายขึ้น
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <a href="#places" class="btn btn-kku-primary">ดูสถานที่แนะนำ</a>
+                <a href="#suggest-form" class="btn btn-kku-outline">แนะนำสถานที่เพิ่มเติม</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 position-relative">
+            <div class="hero-media-card">
+              <video class="hero-video-full" src="./video/kku.mp4" autoplay muted loop playsinline></video>
+              <div class="hero-badge">
+                <div class="badge-dot"></div>
+                <span>บรรยากาศภายในมอขอไข่</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section id="places" class="places-section page-fade">
+      <div class="container">
+        <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between mb-3 mb-md-4">
+          <div>
+            <div class="section-label">Recommended</div>
+            <h2 class="section-title">6 สถานที่น่าไปในมข.</h2>
+            <p class="section-subtitle">คัดมาทั้งที่กิน ที่อ่านหนังสือ ที่เช็คอิน และที่พักผ่อนในวันสบาย ๆ</p>
+          </div>
+          <div class="mt-2 mt-md-0 text-md-end">
+            <span class="place-meta">เคล็ดลับ: ลองเที่ยวช่วงเย็น แสงสวย ถ่ายรูปขึ้นมาก</span>
+          </div>
+        </div>
+
+        <div class="row g-4">
+
+          <div class="col-md-6 col-xl-4">
+            <article class="place-card">
+              <div class="place-badge">
+                <span>01</span>
+                <span>แลนด์มาร์กประจำมอ</span>
+              </div>
+              <h3 class="place-title mt-2">ศาลเจ้าพ่อมอดินแดง</h3>
+              <div class="place-en">Mor Din Daeng Shrine</div>
+              <p class="place-description mt-2">
+                จุดศูนย์รวมใจของนักศึกษาและบุคลากร หลายคนแวะมากราบสักการะ ขอพร ก่อนเริ่มเรียนหรือก่อนสอบ
+                บรรยากาศร่มรื่น มีที่นั่งพักและถ่ายรูปได้รอบ ๆ
+              </p>
+              <div class="place-images">
+                <img src="./img/jaopormor1.jpg" alt="บรรยากาศหน้าศาลเจ้าพ่อมอดินแดง">
+                <img src="./img/jaopormor2.jpg" alt="นักศึกษาไหว้ศาลเจ้าพ่อมอดินแดง">
+              </div>
+              <div class="place-meta mt-2">เหมาะเวลา: เช้า หรือเย็นก่อนพระอาทิตย์ตก</div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-4">
+            <article class="place-card">
+              <div class="place-badge">
+                <span>02</span>
+                <span>จุดเช็คอินริมบึง</span>
+              </div>
+              <h3 class="place-title mt-2">บึงสีฐาน</h3>
+              <div class="place-en">Bueng Si Than</div>
+              <p class="place-description mt-2">
+                สถานที่ยอดฮิตสำหรับเดินเล่น วิ่งออกกำลังกาย ปั่นจักรยาน และนั่งชิลล์ริมบึง
+                ช่วงเย็นจะมีร้านอาหารและคาเฟ่เล็ก ๆ รอบ ๆ ให้เลือกนั่งพักผ่อนกับเพื่อน ๆ
+              </p>
+              <div class="place-images">
+                <img src="./img/sithan1.jpg" alt="วิวบึงสีฐานช่วงพระอาทิตย์ตก">
+                <img src="./img/sithan2.jpg" alt="นักศึกษานั่งเล่นริมบึงสีฐาน">
+              </div>
+              <div class="place-meta mt-2">เหมาะเวลา: เย็นถึงหัวค่ำ บรรยากาศดีมาก</div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-4">
+            <article class="place-card">
+              <div class="place-badge">
+                <span>03</span>
+                <span>สายติว สายอ่าน</span>
+              </div>
+              <h3 class="place-title mt-2">สำนักหอสมุด</h3>
+              <div class="place-en">KKU Library</div>
+              <p class="place-description mt-2">
+                แหล่งรวบรวมหนังสือและพื้นที่อ่านหนังสือสำหรับทุกคณะ มีโซนเงียบ โซนทำงานกลุ่ม และปลั๊กไฟครบ
+                เหมาะสำหรับเตรียมสอบ ทำโปรเจ็กต์ หรืออ่านหนังสือยาว ๆ ทั้งวัน
+              </p>
+              <div class="place-images">
+                <img src="./img/kkul1.jpg" alt="ด้านหน้าสำนักหอสมุดมหาวิทยาลัยขอนแก่น">
+                <img src="./img/kkul2.jpg" alt="โซนอ่านหนังสือภายในสำหอสมุดหอสมุด">
+              </div>
+              <div class="place-meta mt-2">ช่วงเปิดบริการ: ตามเวลาทำการของหอสมุดกลาง</div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-4">
+            <article class="place-card">
+              <div class="place-badge">
+                <span>04</span>
+                <span>สายกินห้ามพลาด</span>
+              </div>
+              <h3 class="place-title mt-2">ศูนย์อาหารและบริการ 1 (คอมเพล็กซ์ มข)</h3>
+              <div class="place-en">Food and Services Center 1 (KKU Complex)</div>
+              <p class="place-description mt-2">
+                ศูนย์อาหารรวมเมนูหลากหลาย ราคานักศึกษา ทั้งอาหารตามสั่ง ก๋วยเตี๋ยว ของหวาน และเครื่องดื่ม
+                เหมาะสำหรับนัดเพื่อนกินข้าวกลางวันหรือจบคลาสแล้วแวะทาน
+              </p>
+              <div class="place-images">
+                <img src="./img/complex1.jpg" alt="บรรยากาศด้านหน้าคอมเพล็กซ์">
+                <img src="./img/complex2.jpg" alt="โซนอาหารและที่นั่งภายในคอมเพล็กซ์">
+              </div>
+              <div class="place-meta mt-2">เหมาะเวลา: ช่วงเที่ยงและเย็น มีเมนูให้เลือกเยอะ</div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-4">
+            <article class="place-card">
+              <div class="place-badge">
+                <span>05</span>
+                <span>สายเทค สายไอที</span>
+              </div>
+              <h3 class="place-title mt-2">วิทยาลัยการคอมพิวเตอร์</h3>
+              <div class="place-en">College of Computing KKU</div>
+              <p class="place-description mt-2">
+                ศูนย์กลางของคนสายโค้ดและเทคโนโลยี ห้องเรียนทันสมัย มีห้องปฏิบัติการคอมพิวเตอร์
+                และพื้นที่ส่วนกลางสำหรับทำโปรเจ็กต์กลุ่ม หรือนั่งเรียน นั่งเล่นชิวๆตากแอร์ก็ได้ 
+              </p>
+              <div class="place-images">
+                <img src="./img/cp1.jpg" alt="ด้านหน้าวิทยาลัยการคอมพิวเตอร์">
+                <img src="./img/cp2.jpg" alt="บรรยากาศภายในอาคารเรียนวิทยาลัยการคอมพิวเตอร์">
+              </div>
+              <div class="place-meta mt-2">โซนแนะนำ: CO-Working space</div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-4">
+            <article class="place-card">
+              <div class="place-badge">
+                <span>06</span>
+                <span>ประตูมอขอไข่</span>
+              </div>
+              <h3 class="place-title mt-2">ประตูมหาวิทยาลัยขอนแก่น</h3>
+              <div class="place-en">KKU Main Gate</div>
+              <p class="place-description mt-2">
+                จุดเช็คอินยอดฮิตสำหรับถ่ายรูปคู่กับชื่อมหาวิทยาลัยขอนแก่น หลายคนมาถ่ายรูปในวันเปิดเทอม วันรับน้อง
+                หรือวันรับปริญญา เป็นอีกหนึ่งสัญลักษณ์ของมอขอ มีทั้งประตูฝั่งเจ้าพ่อมอ และประตูฝั่งบึงสีฐาน
+              </p>
+              <div class="place-images">
+                <img src="./img/gate1.jpg" alt="ประตูฝั่งบึงสีฐาน">
+                <img src="./img/gate2.jpg" alt="ประตูฝั่งเจ้าพ่อมอ">
+              </div>
+              <div class="place-meta mt-2">ช่วงที่นิยม: วันรับปริญญา และวันเปิดเทอม</div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="suggest-form" class="form-section page-fade">
+      <div class="container">
+        <div class="row g-4 g-lg-5 align-items-start">
+          <div class="col-lg-5">
+            <div class="section-label">Share Your Place</div>
+            <h2 class="section-title">แนะนำสถานที่เพิ่มเติม</h2>
+            <p class="section-subtitle mb-3">
+              ถ้าคุณมีมุมลับ ร้านอร่อย หรือจุดถ่ายรูปที่ชอบในมข. สามารถส่งเข้ามา
+              แอดมินจะนำไปพิจารณาเพิ่มในรายการสถานที่แนะนำต่อไป
+            </p>
+          </div>
+          <div class="col-lg-7">
+            <div class="form-card">
+              <form action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="56ed36ad-e2dc-41e3-b5c6-db9bce45ac97">
+                <input type="hidden" name="subject" value="KKU Campus Guide - แนะนำสถานที่ใหม่">
+                <div class="mb-3">
+                  <label for="placeName" class="form-label">ชื่อสถานที่<span class="required">*</span></label>
+                  <input type="text" id="placeName" name="place_name" class="form-control"
+                    placeholder="เช่น สระพลาสติก, ลานเทเลทับบี้" required>
+                </div>
+                <div class="mb-3">
+                  <label for="placeDetail" class="form-label">รายละเอียดสถานที่<span class="required">*</span></label>
+                  <textarea id="placeDetail" name="details" rows="4" class="form-control"
+                    placeholder="เล่าบรรยากาศ จุดเด่น วิธีเดินทาง หรือช่วงเวลาที่เหมาะในการไป" required></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="imageUrl" class="form-label">URL ของภาพประกอบ<span class="required">*</span></label>
+                  <input type="url" id="imageUrl" name="image_url" class="form-control" placeholder="เช่น https://..."
+                    required>
+                  <div class="form-text" style="font-size: 0.8rem; margin-top: 0.3rem;">
+                    สามารถวางลิงก์รูปจากอินเทอร์เน็ต หรือจากระบบเก็บไฟล์ออนไลน์ที่ตั้งค่าให้แชร์ได้
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <button type="submit" class="btn btn-kku-primary">ส่งคำแนะนำสถานที่</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
+      <div>KKU Campus Guide · Khon Kaen University</div>
+      <div>&copy; Copyright นายพีรธัช ผันอากาศ | รหัสนักศึกษา: 673380231-5 IT Sec.1</div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const canvas = document.getElementById("logoCanvas");
+    const ctx = canvas.getContext("2d");
+    const size = canvas.width;
+    const center = size / 2;
+    const radius = size * 0.42;
+    let angle = 0;
+
+    function drawLogo() {
+      ctx.clearRect(0, 0, size, size);
+      const gradient = ctx.createRadialGradient(center - 4, center - 6, radius * 0.2, center, center, radius);
+      gradient.addColorStop(0, "#fbe3d9");
+      gradient.addColorStop(0.5, "#f0a58e");
+      gradient.addColorStop(1, "#a73b24");
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(center, center, radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.save();
+      ctx.translate(center, center);
+      ctx.rotate(angle * Math.PI / 180);
+      ctx.strokeStyle = "rgba(255,255,255,0.65)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, radius * 0.75, radius * 0.38, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+
+      const orbitRadius = radius * 0.78;
+      const dotX = center + orbitRadius * Math.cos(angle * Math.PI / 180);
+      const dotY = center + orbitRadius * Math.sin(angle * Math.PI / 180);
+      ctx.fillStyle = "#ffffff";
+      ctx.beginPath();
+      ctx.arc(dotX, dotY, 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 15px Kanit";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("KK", center, center - 3);
+      ctx.font = "10px Kanit";
+      ctx.fillText("U", center, center + 9);
+
+      angle += 1.3;
+      if (angle >= 360) angle = 0;
+      requestAnimationFrame(drawLogo);
+    }
+
+    drawLogo();
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener("click", function (e) {
+        const targetId = this.getAttribute("href");
+        if (targetId.length > 1) {
+          e.preventDefault();
+          const target = document.querySelector(targetId);
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 80,
+              behavior: "smooth"
+            });
+          }
+        }
+      });
+    });
+
+    // Page entrance animation
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".page-fade").forEach(el => {
+        setTimeout(() => {
+          el.classList.add("show");
+        }, 150);
+      });
+    });
+  </script>
+</body>
+
+</html>

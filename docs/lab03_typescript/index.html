@@ -19,17 +19,25 @@
                 <input id="id" type="text" class="form-control" placeholder="Student ID" />
             </div>
             <div class="col-md-2">
-                เพิ่ม title_name,first_name,last_name, email ให้ครบ
-                <input />
+                <input id="title_name" type="text" class="form-control" placeholder="คำนำหน้า (เช่น นาย)" />
+            </div>
+            <div class="col-md-2">
+                <input id="first_name" type="text" class="form-control" placeholder="ชื่อ" />
+            </div>
+            <div class="col-md-2">
+                <input id="last_name" type="text" class="form-control" placeholder="นามสกุล" />
+            </div>
+            <div class="col-md-3">
+                <input id="email" type="email" class="form-control" placeholder="อีเมล" />
+            </div>
+            <div class="col-md-1">
+                <button id="addBtn" class="btn btn-primary w-100">เพิ่ม</button>
             </div>
             <div class="col-md-2">
                 <input id="year" type="number" class="form-control" placeholder="ชั้นปี" />
             </div>
             <div class="col-md-3">
                 <input id="major" type="text" class="form-control" placeholder="สาขา" />
-            </div>
-            <div class="col-md-1">
-                <button id="addBtn" class="btn btn-primary w-100">เพิ่ม</button>
             </div>
         </div>
     </div>
@@ -47,6 +55,13 @@
         <div class="input-group">
             <input id="searchMajor" type="text" class="form-control" placeholder="ป้อนสาขาที่ต้องการค้นหา" />
             <button id="searchMajorBtn" class="btn btn-warning">ค้นหา</button>
+        </div>
+    </div>
+    <div class="card p-3 mb-4">
+        <h5>🔍 ค้นหาด้วยอีเมล</h5>
+        <div class="input-group">
+            <input id="searchEmail" type="text" class="form-control" placeholder="ป้อนอีเมลที่ต้องการค้นหา" />
+            <button id="searchEmailBtn" class="btn btn-info">ค้นหา</button>
         </div>
     </div>
 

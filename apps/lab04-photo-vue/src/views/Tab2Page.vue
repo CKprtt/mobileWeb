@@ -3,6 +3,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Photo Gallery</ion-title>
+        <div style="text-indent: 1%;">โดย นายพีรธัช ผันอากาศ รหัสนักศึกษา: 673380231-5</div>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -21,19 +22,18 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-
-      <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-        <!-- CHANGE: Add a click event listener to the floating action button -->
-        <ion-fab-button @click="addNewToGallery()">
-          <ion-icon :icon="camera"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
     </ion-content>
+    <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+      <!-- CHANGE: Add a click event listener to the floating action button -->
+      <ion-fab-button @click="addNewToGallery()">
+        <ion-icon :icon="camera"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { camera, trash, close } from 'ionicons/icons';
+import { camera, trash, close } from "ionicons/icons";
 import {
   IonPage,
   IonHeader,
@@ -47,9 +47,9 @@ import {
   IonRow,
   IonCol,
   IonImg,
-} from '@ionic/vue';
+} from "@ionic/vue";
 
-import { usePhotoGallery } from '@/composables/usePhotoGallery';
+import { usePhotoGallery } from "@/composables/usePhotoGallery";
 
 // CHANGE: Add `photos` array to destructure from `usePhotoGallery()`
 const { photos, addNewToGallery } = usePhotoGallery();

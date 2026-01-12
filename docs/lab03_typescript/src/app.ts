@@ -38,7 +38,7 @@ function renderTable(elementId: string = "studentTableBody"): void {
   const last_name = (document.getElementById("last_name") as HTMLInputElement)
     .value;
   const email = (document.getElementById("email") as HTMLInputElement).value;
-  //  เพิ่ม title_name,first_name,last_name, email ให้ครบ
+  //  เพิ่ม title_name,first_name,last_name, email 
   const student: Student = {
     id,
     year,

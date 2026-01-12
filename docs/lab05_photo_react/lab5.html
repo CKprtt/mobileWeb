@@ -1,26 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab5:Photo Gallery By Ionic React</title>
+    <meta charset="UTF-8" />
+    <title>Lab 05 | Photo Gallery (React)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --blue: #1e88e5;
+            --blue-light: #e3f2fd;
+            --gray: #f5f7fa;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Kanit", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(180deg, var(--blue-light), #ffffff);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--blue);
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: var(--blue);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 20px;
+            font-size: 1rem;
+        }
+
+        .info-grid span {
+            color: var(--text-light);
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 220px;
+            text-align: center;
+            padding: 14px 18px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn.primary {
+            background: var(--blue);
+            color: #ffffff;
+        }
+
+        .btn.primary:hover {
+            background: #1565c0;
+        }
+
+        .btn.outline {
+            border: 2px solid var(--blue);
+            color: var(--blue);
+            background: #ffffff;
+        }
+
+        .btn.outline:hover {
+            background: var(--blue-light);
+        }
+
+        .images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .images img {
+            width: 100%;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid #e5e7eb;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+    </style>
 </head>
 
 <body>
-    <h2>Lab 05 : Photo Gallery (React)</h2>
+    <div class="container">
+        <header>
+            <h1>Lab 05 : Photo Gallery</h1>
+            <p>Mobile Web Application Development (Ionic React)</p>
+        </header>
+        <section class="card">
+            <h2>ข้อมูลนักศึกษา</h2>
+            <div class="info-grid">
+                <span>ชื่อ - สกุล</span>
+                <div>นาย พีรธัช ผันอากาศ</div>
+                <span>รหัสนักศึกษา</span>
+                <div>673380231-5</div>
+            </div>
+        </section>
+        <section class="card">
+            <h2>ตัวอย่างหน้าจอแอป</h2>
+            <div class="images">
+                <img src="./react.jpg" alt="React App" />
+                <img src="./android_1.jpg" alt="Android App" />
+                <img src="./ios_1.jpg" alt="iOS App" />
+            </div>
+            <div class="images">
+                <img src="./iphone.jpg" alt="iOS App" />
+            </div>
+        </section>
+        <section class="card">
+            <div class="actions">
+                <a href="./dist/index.html" target="_blank" class="btn primary">
+                    เปิดแอป Photo Gallery (PWA)
+                </a>
+                <a href="./app-release.apk" download class="btn outline">
+                    ดาวน์โหลดแอป Android (APK)
+                </a>
+            </div>
+        </section>
+        <footer>
+            © 2026 Mobile Web Application Development — Lab 05
+        </footer>
 
-    <p>
-        <a href="./dist/index.html" target="_blank">
-            👉 เปิดแอป Photo Gallery (PWA)
-        </a>
-    </p>
-
-    <p>
-        <a href="./app-release.apk" download>
-            👉 ดาวน์โหลดแอป Android (APK)
-        </a>
-    </p>
+    </div>
 </body>
 
 </html>

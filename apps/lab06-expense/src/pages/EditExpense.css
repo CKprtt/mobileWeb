@@ -1,0 +1,41 @@
+.edit-expense-container {
+  --background: #f7faff; /* ฟ้าอ่อนมาก */
+  background: #f7faff;
+  padding: 20px;
+}
+
+ion-input,
+ion-select,
+ion-textarea {
+  margin-top: 14px;
+  --background: white;
+  --border-radius: 14px;
+  --padding-start: 14px;
+  --padding-end: 14px;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 60, 180, 0.08);
+}
+
+.update-btn {
+  margin-top: 20px;
+  --background: #4da3ff;
+  --background-hover: #1a88ff;
+  --border-radius: 16px;
+  color: white;
+  font-weight: 600;
+}
+
+.delete-btn {
+  margin-top: 12px;
+  --background: #ff6b6b;
+  --background-hover: #ff4b4b;
+  --border-radius: 16px;
+  color: white;
+  font-weight: 600;
+}
+
+.alert-button-role-destructive {
+  color: #ff4b4b !important;
+  font-weight: bold;
+}

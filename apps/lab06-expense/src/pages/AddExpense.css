@@ -1,0 +1,32 @@
+.add-expense-container {
+  background: #f4faff;
+  min-height: 100%;
+}
+
+.add-expense-container ion-input,
+.add-expense-container ion-textarea,
+.add-expense-container ion-select {
+  --background: #ffffff;
+  --padding-start: 14px;
+  --padding-end: 14px;
+  --border-radius: 14px;
+
+  border: 1.5px solid #d3e8ff;
+  margin-bottom: 16px;
+  border-radius: 14px;
+}
+
+.save-btn {
+  --background: #4da3ff;
+  --background-hover: #1e8bff;
+  --background-activated: #1e8bff;
+
+  border-radius: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+ion-toolbar {
+  --background: #4da3ff;
+  --color: white;
+}

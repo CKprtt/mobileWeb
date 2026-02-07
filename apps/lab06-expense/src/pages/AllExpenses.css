@@ -1,0 +1,60 @@
+.all-expenses-container {
+  background: #f5faff; /* ฟ้าจาง */
+  min-height: 100vh;
+}
+
+.expense-header-row {
+  background: #e7f1ff;
+  padding: 12px 0;
+  border-radius: 12px;
+  font-weight: bold;
+  color: #2a4d8f;
+  text-align: center;
+}
+
+.expense-row {
+  background: #ffffff;
+  margin-top: 10px;
+  padding: 12px 0;
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(0, 84, 179, 0.1);
+  transition: 0.2s ease;
+}
+
+.expense-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 84, 179, 0.15);
+}
+
+.expense-text {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #2d4059;
+}
+
+.edit-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-btn {
+  --border-radius: 12px;
+  --color: #1e88e5;
+  --border-color: #90caf9;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  font-size: 0.85rem;
+}
+
+.no-data {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1.1rem;
+  color: #597a9c;
+}
+
+.loading-container {
+  text-align: center;
+  margin-top: 40px;
+}

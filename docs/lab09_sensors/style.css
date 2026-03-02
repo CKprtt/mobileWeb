@@ -1,0 +1,73 @@
+body {
+    font-family: 'Kanit', sans-serif;
+    background: linear-gradient(180deg, #f4f9ff 0%, #ffffff 100%);
+    color: #1e3a5f;
+}
+
+/* Header */
+.lab-header {
+    background: #e3f2fd;
+    border-bottom: 1px solid #cfe8ff;
+}
+
+.lab-header h2 {
+    font-weight: 600;
+}
+
+.student-info {
+    font-weight: 500;
+    color: #1976d2;
+}
+
+/* Section Title */
+.section-title {
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1565c0;
+}
+
+/* Image Card */
+.img-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 12px;
+    box-shadow: 0 8px 20px rgba(0, 119, 255, 0.08);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.img-card img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.img-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0, 119, 255, 0.15);
+}
+
+/* Footer */
+.lab-footer {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Fade In Animation */
+.fade-in {
+    opacity: 1 !important;
+    transform: translateY(0px) !important;
+    transition: all 0.6s ease;
+}
+
+/* Button */
+.btn-primary {
+    background: linear-gradient(45deg, #2196f3, #42a5f5);
+    border: none;
+    padding: 10px 30px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #1976d2, #1e88e5);
+}

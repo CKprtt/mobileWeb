@@ -71,3 +71,7 @@ body {
 .btn-primary:hover {
     background: linear-gradient(45deg, #1976d2, #1e88e5);
 }
+
+video {
+    width: 100%;
+}

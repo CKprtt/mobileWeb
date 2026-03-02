@@ -19,5 +19,10 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom'
+  },
+  server: {
+    allowedHosts: [
+      'uneventful-kane-reversibly.ngrok-free.dev'
+    ]
   }
 })

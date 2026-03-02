@@ -17,6 +17,7 @@ export class ArmWorkoutEngine {
       repsBad: 0,
       score: 0,
       avgRepMs: 0,
+      lastMessage: '',
     },
   };
 
@@ -26,10 +27,12 @@ export class ArmWorkoutEngine {
     return () => this.listeners.delete(cb);
   }
 
+
   private emit() {
     const snap = this.clone();
     this.listeners.forEach((cb) => cb(snap));
   }
+
 
   private clone(): WorkoutState {
     return JSON.parse(JSON.stringify(this.state));
@@ -45,9 +48,12 @@ export class ArmWorkoutEngine {
         repsBad: 0,
         score: 0,
         avgRepMs: 0,
+        lastMessage: 'READY',
       },
     };
     this.phase = "WAIT_UP";
+    this.peak = 0;
+    this.valley = 0;
     this.emit();
   }
 
@@ -59,14 +65,16 @@ export class ArmWorkoutEngine {
   process(sample: AccelSample) {
     if (this.state.status !== "RUNNING") return;
 
-    const y = sample.ay;
-    const side = Math.abs(sample.ax) + Math.abs(sample.az);
 
-    const UP_TH = 2.0;
-    const DOWN_TH = -1.5;
-    const MIN_ROM = 3.0;
-    const MIN_MS = 700;
-    const MAX_MS = 3500;
+    const y = sample.ay; 
+    const side = Math.abs(sample.ax) + Math.abs(sample.az); 
+
+    const UP_TH = 2.0;     
+    const DOWN_TH = -1.5;   
+    const MIN_ROM = 3.5;    
+    const MIN_MS = 700;     
+    const MAX_MS = 4000;   
+    const SIDE_TH = 5.0;   
 
     if (this.phase === "WAIT_UP") {
       this.peak = Math.max(this.peak, y);
@@ -74,44 +82,52 @@ export class ArmWorkoutEngine {
         this.phase = "WAIT_DOWN";
         this.lastUpTime = sample.t;
       }
-    } else {
+    }
+    else {
       this.valley = Math.min(this.valley, y);
 
+
       if (y < DOWN_TH) {
-        const repMs = sample.t - this.lastRepTime;
-        this.lastRepTime = sample.t;
+        const currentTime = sample.t;
+        const repMs = currentTime - this.lastRepTime;
+      
         this.state.stats.repsTotal++;
 
         const rom = this.peak - this.valley;
-
-        let ok = true;
+        let isOk = true;
         let msg = "OK";
 
-        if (rom < MIN_ROM) {
-          ok = false;
-          msg = "ยกแขนต่ำเกินไป";
-        } else if (repMs < MIN_MS) {
-          ok = false;
-          msg = "เร็วเกินไป";
-        } else if (repMs > MAX_MS) {
-          ok = false;
-          msg = "ช้าเกินไป";
-        } else if (side > 5) {
-          ok = false;
+        if (side > SIDE_TH) {
+          isOk = false;
           msg = "กรุณายกแนวตั้ง";
+        } else if (rom < MIN_ROM) {
+          isOk = false;
+          msg = "ยกแขนต่ำเกินไป";
+        } else if (this.lastRepTime > 0 && repMs < MIN_MS) {
+          isOk = false;
+          msg = "เร็วเกินไป";
+        } else if (this.lastRepTime > 0 && repMs > MAX_MS) {
+          isOk = false;
+          msg = "ช้าเกินไป";
         }
 
-        if (ok) {
+        if (isOk) {
           this.state.repDisplay++;
           this.state.stats.repsOk++;
-          this.state.stats.score++;
-          this.state.stats.avgRepMs =
-            Math.round((this.state.stats.avgRepMs + repMs) / 2);
+          this.state.stats.score += 10; 
+         
+          if (this.lastRepTime > 0) {
+            this.state.stats.avgRepMs = this.state.stats.avgRepMs === 0
+              ? repMs
+              : Math.round((this.state.stats.avgRepMs + repMs) / 2);
+          }
         } else {
           this.state.stats.repsBad++;
         }
 
         this.state.stats.lastMessage = msg;
+        this.lastRepTime = currentTime;
+       
         this.phase = "WAIT_UP";
         this.peak = 0;
         this.valley = 0;
